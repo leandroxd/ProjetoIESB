@@ -11,6 +11,7 @@ import com.xwray.groupie.Item;
 import com.xwray.groupie.ViewHolder;
 
 import br.com.arturbc.projetoiesb.R;
+import br.com.arturbc.projetoiesb.User;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -20,6 +21,10 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        User user = getIntent().getExtras().getParcelable("user");
+        getSupportActionBar().setTitle(user.getUsername());
+
 
         RecyclerView rv = findViewById(R.id.recycle_chat);
 
