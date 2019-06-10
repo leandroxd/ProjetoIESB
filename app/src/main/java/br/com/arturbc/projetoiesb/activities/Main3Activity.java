@@ -169,6 +169,7 @@ public class Main3Activity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
                                                 Log.i("onSuccess: ", documentReference.getId());
+
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
