@@ -1,10 +1,5 @@
 package br.com.arturbc.projetoiesb.activities;
 
-//Version Controll - Version 2.1
-//1.0 - Login
-//2.0 - Maps
-//2.1 - Login and Maps functional
-
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
