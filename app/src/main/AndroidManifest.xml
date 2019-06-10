@@ -25,6 +25,7 @@
             android:label="@string/Contatos"
             android:name=".activities.ContactsActivity"></activity>
         <activity android:name=".activities.Main3Activity" />
+        <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.Main2Activity" />
         <activity android:name=".activities.MainActivity">
 
