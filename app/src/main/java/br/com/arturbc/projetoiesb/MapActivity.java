@@ -69,7 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static  final float DEFAULT_ZOOM = 15f;
 
     //Widgets
-    private EditText mSeachText;
+    private EditText mSearchText;
 
     //variaveis
     private boolean mLocationPermissionGranted = false;
@@ -80,14 +80,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        mSeachText = (EditText) findViewById(R.id.input_search);
+        mSearchText = (EditText) findViewById(R.id.input_search);
         getLocationPermission();
 
     }
     private void init(){
         Log.d(TAG, "init: Inicializando");
 
-        mSeachText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH
@@ -106,7 +106,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void geoLocate(){
         Log.d(TAG, "geoLocate: Geolocalizando");
-        String searchString = mSeachText.getText().toString();
+        String searchString = mSearchText.getText().toString();
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> list = new ArrayList<>();
 
