@@ -5,4 +5,5 @@
     <string name="Logout">Logout</string>
     <string name="Mensagens">Mensagens</string>
     <string name="Mapa">Mapa</string>
+    <string name="btn_chat">ENVIAR</string>
 </resources>
