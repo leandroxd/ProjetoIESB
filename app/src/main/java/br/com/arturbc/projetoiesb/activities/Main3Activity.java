@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import br.com.arturbc.projetoiesb.R;
+import br.com.arturbc.projetoiesb.User;
 
 public class Main3Activity extends AppCompatActivity {
 
@@ -153,6 +156,27 @@ public class Main3Activity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 Log.i("onSuccess: ", uri.toString());
+
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                String profileUrl = uri.toString();
+
+                                User user = new User(uid,email,profileUrl);
+
+                                FirebaseFirestore.getInstance().collection("users")
+                                        .add(user)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.i("onSuccess: ", documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.i("Falhou subir usuario:", e.getMessage());
+                                            }
+                                        });
                             }
                         });
                     }
