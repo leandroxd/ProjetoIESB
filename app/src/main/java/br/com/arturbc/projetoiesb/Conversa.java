@@ -1,8 +1,8 @@
 package br.com.arturbc.projetoiesb;
 
 public class Conversa {
-    private String dono;
     private String destinatario;
+    private String dono;
 
     public String getDono() { return dono; }
 

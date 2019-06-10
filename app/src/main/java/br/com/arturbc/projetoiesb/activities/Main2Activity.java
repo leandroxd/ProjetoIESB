@@ -105,10 +105,10 @@ public class Main2Activity extends AppCompatActivity {
             });
         }
 
-        load();
+        //carregar();
     }
 
-    private void load() {
+    private void carregar() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
 
