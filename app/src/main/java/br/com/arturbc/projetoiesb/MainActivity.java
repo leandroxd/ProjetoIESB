@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        Button btnMapa = (Button) findViewById(R.id.btnMapa);
+        Button btnMapa = findViewById(R.id.btnMapa);
         btnMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
