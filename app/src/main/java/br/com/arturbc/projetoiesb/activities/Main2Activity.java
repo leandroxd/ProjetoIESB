@@ -8,16 +8,14 @@ package br.com.arturbc.projetoiesb.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -56,7 +54,8 @@ public class Main2Activity extends AppCompatActivity {
 
         final Button btnSair = findViewById(R.id.btnSair);
         final Button btnMapa = findViewById(R.id.btnMapa);
-        final Button bntChat = findViewById(R.id.bntChat);
+        final Button btnChat = findViewById(R.id.btnChat);
+        final Button btnAdd = findViewById(R.id.btnAdd);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
@@ -78,7 +77,14 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        bntChat.setOnClickListener(new View.OnClickListener() {
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gravar("artur-bc@hotmail.com","teste");
+            }
+        });
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Clicou no Chat: ");
@@ -88,10 +94,6 @@ public class Main2Activity extends AppCompatActivity {
                 startActivity(intenet);
             }
         });
-
-
-
-
 
         if(isServicesOK()){
             btnMapa.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +129,18 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void gravar(String dono, String destinatario) {
+        Conversa c = new Conversa();
+
+        c.setDono(dono);
+        c.setDestinatario(destinatario);
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference ref = db.getReference("conversa");
+
+        ref.push().setValue(c);
     }
 
     private class MeuViewHolder extends RecyclerView.ViewHolder {
@@ -182,32 +196,4 @@ public class Main2Activity extends AppCompatActivity {
 
         return false;
     }
-   /* private void verifyAuthentication() {
-        if(FirebaseAuth.getInstance().getUid() == null){
-            Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.contats:
-                break;
-
-            case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
-                verifyAuthentication();
-
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 }
