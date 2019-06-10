@@ -19,12 +19,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import br.com.arturbc.projetoiesb.R;
 
@@ -122,6 +129,7 @@ public class Main3Activity extends AppCompatActivity {
                     FirebaseUser usuario = autenticado.getCurrentUser();
                     Toast.makeText(atividade, usuario.getUid() + " / " + usuario.getEmail(), Toast.LENGTH_LONG).show();
                     Intent novaAtividade = new Intent(atividade, Main2Activity.class);
+                    saveUserInFirebase();
                     startActivity(novaAtividade);
                     finish();
                 } else {
@@ -134,6 +142,28 @@ public class Main3Activity extends AppCompatActivity {
 
     }
 
+    private void saveUserInFirebase() {
+        String filename = UUID.randomUUID().toString();
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images" + filename);
+        StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = ref.putFile(mSelectedUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.i("onSuccess: ", uri.toString());
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Falhou em salvar: ", e.getMessage(), e);
+                    }
+                });
+    }
 
 
     private void selectPhoto(){
