@@ -13,19 +13,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.MessagesActivity"></activity>
-        <activity android:name=".fragments.MapActivity" />
+        android:theme="@style/Theme.AppCompat">
+
+        <activity
+            android:label="@string/Mensagens"
+            android:name=".activities.MessagesActivity" />
+        <activity
+            android:label="@string/Mapa"
+            android:name=".fragments.MapActivity" />
+        <activity
+            android:label="@string/Contatos"
+            android:name=".activities.ContactsActivity"></activity>
         <activity android:name=".activities.Main3Activity" />
         <activity android:name=".activities.Main2Activity" />
         <activity android:name=".activities.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activities.MessagesActivity"></meta-data>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB0MzplyMrg7FRcjkyILrK92eb2g91gVPQ" />

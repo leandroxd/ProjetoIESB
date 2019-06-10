@@ -38,6 +38,8 @@ public class MessagesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.contats:
+               Intent intent = new Intent(MessagesActivity.this, ContactsActivity.class);
+               startActivity(intent);
                 break;
 
             case R.id.logout:

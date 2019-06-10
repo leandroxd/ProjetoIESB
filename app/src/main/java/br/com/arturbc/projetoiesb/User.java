@@ -2,11 +2,13 @@ package br.com.arturbc.projetoiesb;
 
 public class User {
 
-    private final String uid;
-    private final String username;
-    private final String profileUrl;
+    private  String uid;
+    private  String username;
+    private  String profileUrl;
 
+    public User(){
 
+    }
     public User(String uid, String username, String profileUrl) {
         this.uid = uid;
         this.username = username;
