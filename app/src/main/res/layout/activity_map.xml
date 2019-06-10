@@ -12,6 +12,17 @@
         android:id="@+id/map"
         tools:context=".MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <ImageView
+        android:id="@+id/ic_gps"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_gps"
+        tools:layout_editor_absoluteX="355dp"
+        tools:layout_editor_absoluteY="67dp"
+        tools:ignore="MissingConstraints" />
     <RelativeLayout
         android:id="@+id/relLayout"
         android:layout_width="match_parent"
@@ -42,6 +53,10 @@
             android:hint="Endereço, Cidade ou CEP"
             android:imeOptions="actionSearch" />
 
+
+
     </RelativeLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>
