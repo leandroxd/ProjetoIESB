@@ -2,12 +2,20 @@ package br.com.arturbc.projetoiesb.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.nfc.Tag;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,9 +24,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
+
 import br.com.arturbc.projetoiesb.R;
 
 public class Main3Activity extends AppCompatActivity {
+
+
+    private Uri mSelectedUri;
+    private ImageView mImgPhoto;
+    private Button mBtnSelectPhoto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +47,15 @@ public class Main3Activity extends AppCompatActivity {
 
         final Button btnConfirmar = findViewById(R.id.btnConfirmar);
         final Button btnCancelar = findViewById(R.id.btnCancelar);
+        mBtnSelectPhoto = findViewById(R.id.btn_selected_photo);
+        mImgPhoto = findViewById(R.id.image_photo);
+
+        mBtnSelectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPhoto();
+            }
+        });
 
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +86,30 @@ public class Main3Activity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final String TAG = "OnActivityResult";
+
+        if(requestCode == 0){
+            mSelectedUri = data.getData();
+
+            Bitmap bitmap = null;
+
+
+            try{
+                bitmap =  MediaStore.Images.Media.getBitmap(getContentResolver(), mSelectedUri);
+                mImgPhoto.setImageDrawable(new BitmapDrawable(this.getResources(),bitmap));
+                mBtnSelectPhoto.setAlpha(0);
+
+
+            }catch(IOException e){
+                Log.d(TAG, "onActivityResult: Falhou em carregar a imagem");
+            }
+        }
     }
 
     private void cadastro(@NonNull String email, @NonNull String senha, final Activity atividade) {
@@ -82,5 +131,15 @@ public class Main3Activity extends AppCompatActivity {
                 }
             }
         });
+
     }
+
+
+
+    private void selectPhoto(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 0);
+    }
+
 }
