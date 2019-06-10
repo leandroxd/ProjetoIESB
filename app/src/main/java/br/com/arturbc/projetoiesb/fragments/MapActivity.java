@@ -1,4 +1,4 @@
-package br.com.arturbc.projetoiesb;
+package br.com.arturbc.projetoiesb.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -32,7 +32,8 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import br.com.arturbc.projetoiesb.R;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 

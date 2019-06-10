@@ -1,4 +1,4 @@
-package br.com.arturbc.projetoiesb;
+package br.com.arturbc.projetoiesb.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import br.com.arturbc.projetoiesb.R;
 
 public class Main3Activity extends AppCompatActivity {
 
