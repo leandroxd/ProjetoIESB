@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "883105508413",
+    "firebase_url": "https://projetoiesb-3727a.firebaseio.com",
+    "project_id": "projetoiesb-3727a",
+    "storage_bucket": "projetoiesb-3727a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883105508413:android:d539be61493a7926",
+        "android_client_info": {
+          "package_name": "br.com.arturbc.projetoiesb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAoz4XMmoSmN0xeUvG0zmyqwl9bmevdHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
