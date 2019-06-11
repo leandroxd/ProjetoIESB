@@ -20,17 +20,13 @@
         android:id="@+id/txt_msg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="#fff"
+        android:background="@color/colorBallonChatR"
         android:padding="8dp"
-        android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewText
-        ViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView
-        TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+        android:text="Texto recebido"
         android:textColor="#000"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/img_message_user"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/img_message_user" />
 </android.support.constraint.ConstraintLayout>

@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.nfc.Tag;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +24,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -40,11 +38,9 @@ import br.com.arturbc.projetoiesb.User;
 
 public class Main3Activity extends AppCompatActivity {
 
-
     private Uri mSelectedUri;
     private ImageView mImgPhoto;
     private Button mBtnSelectPhoto;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +110,6 @@ public class Main3Activity extends AppCompatActivity {
                 bitmap =  MediaStore.Images.Media.getBitmap(getContentResolver(), mSelectedUri);
                 mImgPhoto.setImageDrawable(new BitmapDrawable(this.getResources(),bitmap));
                 mBtnSelectPhoto.setAlpha(0);
-
 
             }catch(IOException e){
                 Log.d(TAG, "onActivityResult: Falhou em carregar a imagem");
@@ -193,6 +188,7 @@ public class Main3Activity extends AppCompatActivity {
     private void selectPhoto(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
+
         startActivityForResult(intent, 0);
     }
 

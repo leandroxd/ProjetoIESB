@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#0D47A1</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorText">#FFFFFF</color>
-    <color name="gray">#E0E0E0</color>
+    <color name="colorBallonChatR">#AAAAAA</color>
+    <color name="colorBallonChatS">#CCCCCC</color>
 </resources>

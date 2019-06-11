@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
     tools:context=".activities.ChatActivity">
 
     <EditText
@@ -15,8 +14,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:hint="@string/DicaMensagem"
         android:inputType="textPersonName"
-        android:text="Digite a mennsagem"
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_chat"
@@ -28,8 +27,8 @@
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/btn_chat"
         android:background="@drawable/bg_button_img_rounded"
+        android:text="@string/Envio"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

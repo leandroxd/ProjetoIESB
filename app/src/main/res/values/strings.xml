@@ -2,8 +2,9 @@
     <string name="app_name">ProjetoIESB</string>
     <string name="Foto">Foto</string>
     <string name="Contatos">Contatos</string>
-    <string name="Logout">Logout</string>
+    <string name="Logout">Desconectar</string>
     <string name="Mensagens">Mensagens</string>
     <string name="Mapa">Mapa</string>
-    <string name="btn_chat">ENVIAR</string>
+    <string name="Envio">ENVIAR</string>
+    <string name="DicaMensagem">Digite a Mensagem</string>
 </resources>
