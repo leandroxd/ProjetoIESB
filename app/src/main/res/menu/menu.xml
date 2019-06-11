@@ -4,7 +4,7 @@
     <item
         android:id="@+id/contats"
         android:title="@string/Contatos"
-        ></item>
+        app:showAsAction="ifRoom"></item>
 
     <item android:id="@+id/logout"
         android:title="@string/Logout"
