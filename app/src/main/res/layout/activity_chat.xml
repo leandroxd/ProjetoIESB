@@ -15,6 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:textColor="#000"
         android:inputType="textPersonName"
         android:text="Digite a mennsagem"
         android:paddingLeft="10dp"
