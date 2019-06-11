@@ -114,11 +114,11 @@ public class ChatActivity extends AppCompatActivity {
 
         editChat.setText(null);
 
-        String fromId = FirebaseAuth.getInstance().getUid();
-        String toId = user.getUid();
+        final String fromId = FirebaseAuth.getInstance().getUid();
+        final String toId = user.getUid();
         long timestamp = System.currentTimeMillis();
 
-        Mensagem message = new Mensagem();
+        final Mensagem message = new Mensagem();
         message.setFromId(fromId);
         message.setToId(toId);
         message.setTimestamp(timestamp);
@@ -133,6 +133,20 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("Sucesso enviar msg:", documentReference.getId());
+
+                            Contact contact = new Contact();
+                            contact.setUid(toId);
+                            contact.setPhotoUrl(user.getProfileUrl());
+                            contact.setTimestamp(message.getTimestamp());
+                            contact.setLastMessage(message.getText());
+
+
+                            FirebaseFirestore.getInstance().collection("/last-messages")
+                                    .document(fromId)
+                                    .collection("contacts")
+                                    .document(toId)
+                                    .set(contact);
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -149,7 +163,22 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("Sucesso enviar msg:", documentReference.getId());
+
+                            Contact contact = new Contact();
+                            contact.setUid(toId);
+                            contact.setUsername(me.getUsername());
+                            contact.setPhotoUrl(me.getProfileUrl());
+                            contact.setTimestamp(message.getTimestamp());
+                            contact.setLastMessage(message.getText());
+
+                            FirebaseFirestore.getInstance().collection("/last-messages")
+                                    .document(toId)
+                                    .collection("contacts")
+                                    .document(fromId)
+                                    .set(contact);
+
                         }
+
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -176,7 +205,9 @@ public class ChatActivity extends AppCompatActivity {
 
             txtMsg.setText(message.getText());
             Picasso.get()
-                    .load(user.getProfileUrl())
+                    .load(message.getFromId().equals(FirebaseAuth.getInstance().getUid())
+                        ? me.getProfileUrl()
+                            : user.getProfileUrl())
                     .into(imgMessage);
         }
 
