@@ -67,7 +67,7 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MeuAdaptador());
 
-        carregar();
+        //carregar();
 
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class Main2Activity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gravar("artur-bc@hotmail.com","teste");
+                gravar("Teste Dono","Teste Destinatario");
             }
         });
 
