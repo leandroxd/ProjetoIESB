@@ -182,7 +182,7 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public int getLayout() {
-          return message.getFromId() == FirebaseAuth.getInstance().getUid()
+          return message.getFromId().equals(FirebaseAuth.getInstance().getUid())
                   ? R.layout.item_from_message
                   : R.layout.item_to_message;
         }
