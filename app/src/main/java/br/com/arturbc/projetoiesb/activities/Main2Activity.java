@@ -24,17 +24,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import br.com.arturbc.projetoiesb.Conversa;
 import br.com.arturbc.projetoiesb.R;
@@ -62,6 +66,8 @@ public class Main2Activity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new MeuAdaptador());
+
+        carregar();
 
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,31 +110,26 @@ public class Main2Activity extends AppCompatActivity {
                 }
             });
         }
-
-        //carregar();
     }
 
     private void carregar() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
+        FirebaseFirestore.getInstance().collection("conversa")
+                .orderBy("destinatario", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        List<DocumentChange> documentChanges = queryDocumentSnapshots.getDocumentChanges();
 
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("conversa");
-        Query consulta = ref.orderByChild("dono").equalTo(email);
-
-        consulta.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Conversa c = dataSnapshot.getChildren().iterator().next().getValue(Conversa.class);
-
-                listaConversa.add(c);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                        if(documentChanges != null){
+                            for (DocumentChange doc: documentChanges) {
+                                if(doc.getType() == DocumentChange.Type.ADDED){
+                                    Conversa c = doc.getDocument().toObject(Conversa.class);
+                                    listaConversa.add(c);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     private void gravar(String dono, String destinatario) {
@@ -137,10 +138,20 @@ public class Main2Activity extends AppCompatActivity {
         c.setDono(dono);
         c.setDestinatario(destinatario);
 
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("conversa");
-
-        ref.push().setValue(c);
+        FirebaseFirestore.getInstance().collection("conversa")
+                .add(c)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Sucesso enviar msg:", documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Falha enviar msg", e.getMessage(), e);
+                    }
+                });
     }
 
     private class MeuViewHolder extends RecyclerView.ViewHolder {
